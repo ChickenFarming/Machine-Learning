@@ -71,7 +71,15 @@ def create_generator(train_df, valid_df, test_df, batch_size, class_mode, target
     def scalar(img):
         return img
 
-    tr_gen = ImageDataGenerator(preprocessing_function= scalar, horizontal_flip= True)
+    tr_gen = ImageDataGenerator(
+    rotation_range=35,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    shear_range=0.1,
+    zoom_range=0.1,
+    horizontal_flip=True,
+    preprocessing_function=scalar)
+
     ts_gen = ImageDataGenerator(preprocessing_function= scalar)
 
     train_generator = tr_gen.flow_from_dataframe(train_df,

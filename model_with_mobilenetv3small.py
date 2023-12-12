@@ -61,27 +61,50 @@ train_df, valid_df, test_df = split_data(data_dir, csv_dir)
 
 """# Data Generator"""
 
-def create_generator(df, batch_size, class_mode, target_size):
-    datagen = ImageDataGenerator(rescale=1.0/255.)
+def create_generator(train_df, valid_df, test_df, batch_size, class_mode, target_size):
+    #penentuan batch
+    ts_length = len(test_df)
+    test_batch_size = max(sorted([ts_length // n for n in range(1, ts_length + 1) if ts_length%n == 0 and ts_length/n <= 80]))
+    test_steps = ts_length // test_batch_size
 
-    generator = datagen.flow_from_dataframe(df,
+    #augmentasi data
+    def scalar(img):
+        return img
+
+    tr_gen = ImageDataGenerator(preprocessing_function= scalar, horizontal_flip= True)
+    ts_gen = ImageDataGenerator(preprocessing_function= scalar)
+
+    train_generator = tr_gen.flow_from_dataframe(train_df,
                                             x_col='filepaths',
                                             y_col='labels',
                                             batch_size=batch_size,
                                             class_mode=class_mode,
-                                            target_size=target_size)
+                                            target_size=target_size,
+                                            shuffle= True)
+    valid_generator = tr_gen.flow_from_dataframe(valid_df,
+                                            x_col='filepaths',
+                                            y_col='labels',
+                                            batch_size=batch_size,
+                                            class_mode=class_mode,
+                                            target_size=target_size,
+                                            shuffle= True)
+    test_generator = ts_gen.flow_from_dataframe(test_df,
+                                            x_col='filepaths',
+                                            y_col='labels',
+                                            batch_size=batch_size,
+                                            class_mode=class_mode,
+                                            target_size=target_size,
+                                            shuffle= False)
 
-    return generator
 
-train_generator = create_generator(train_df, batch_size=25, class_mode='categorical', target_size=(224, 224))
-validation_generator = create_generator(valid_df, batch_size=25, class_mode='categorical', target_size=(224, 224))
-test_generator = create_generator(test_df, batch_size=25, class_mode='categorical', target_size=(224, 224))
+    return train_generator, valid_generator, test_generator
+
+train_generator, validation_generator, test_generator = create_generator(train_df, valid_df, test_df, batch_size=40,class_mode='categorical', target_size=(224, 224))
 
 """# Model"""
 
 from tensorflow.keras.applications import MobileNetV3Small
 
-#model 2
 def create_model():
   model = tf.keras.models.Sequential([
     MobileNetV3Small(include_top=False, weights="imagenet", input_shape=(224, 224, 3), pooling='max'),

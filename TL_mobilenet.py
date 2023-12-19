@@ -1,6 +1,11 @@
-# Saya membuat commit pertama
+# Made by : Wahyu Luna Wijaya
+# Type ML model : Transfer Learning
+# Type TL : MobilenetV2
+# Dataset source : https://zenodo.org/records/4628934#.YtDNzOxBy1u
+# Dataset note : dataset has been split manualy with scale [80:20]
+# train model result : model.h5 and model.tflite
 
-
+#===========================================================================
 import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -8,7 +13,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 
 # Define path to the dataset
-base_dir = "C:\VS CODE FILE FACTORY\Bangkit Product\more chicken\Train_80,20"
+base_dir = "C:\VS CODE FILE FACTORY\Bangkit Product\more chicken\Train_80,20" # this Directory is my local dir in my laptop
 train_dir = base_dir + "/train"
 val_dir = base_dir + "/validation"
 image_size = (224, 224)
@@ -74,8 +79,20 @@ history = model.fit(
 )
 
 # Save the model
-model.save('mobilenet_model2.1.h5')
+model.save('mobilenet_model2.2.h5')
 
+# Save the model as tflite
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+# Save the TensorFlow Lite model
+with open('mobilenet_model2.2.tflite', 'wb') as f:
+    f.write(tflite_model)
+
+#======================================================================
+# you can use code above as your references for your model
+# and code at the bellow is for show the result of your training (val/loss: Accuracy)
+#======================================================================
 
 import matplotlib.pyplot as plt
 

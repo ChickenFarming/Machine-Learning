@@ -1,21 +1,24 @@
-# Machine-Learning
+<h1 align="center">Machine Learning</h1>
 
 <h3 align="center">Machine Learning Project - Chicken disease model</h3>
 	<p align="left">
 
 
 Introducing we from the Machine Learning team have the responsibility to create machine learning models so they can be deployed into applications
+We created a model for one of our application main features is *Disease Scanning*
+And requires appropriate and accurate machine learning models
 
+We created a model from available open source data, here is a link to the data :
+- [kaggle](https://www.kaggle.com/datasets/allandclive/chicken-disease-1)
+- [zenodo](https://zenodo.org/records/4628934#.YtDNzOxBy1u)
 
-We created a model from available open source data, here is a link to the data
-- [Tautan ke halaman pertama](https://www.kaggle.com/datasets/allandclive/chicken-disease-1)
-- [Tautan ke halaman kedua](https://zenodo.org/records/4628934#.YtDNzOxBy1u)
 
 Our data consists of 4 classes :
 - Healthy (Non Disease)
 - Cocci (Disease)
 - NCD (Disease)
 - Salmonela (Disease)
+
 
 <h3 align="center">Machine Learning Team Profile</h3>
 	<p align="left">
@@ -30,7 +33,9 @@ Bangkit ID|Name|Learning Path|University|LinkedIn
 <h3 align="center">Machine Learning Team Model</h3>
 	<p align="left">
 
-We have each branch with different models for each person, and here is detailed information
+We will create code for the model which will be converted into model.h5 and model.tflite, and will be deployed into the mobile app
+We only choose one model that has the best accuracy in our team, so that our application has good performance
+We have each branch with different models for each person, and here is detailed information :
 1. Wahyu Luna Wijaya
    - model : transfer learning
    - type TL : Mobilenet V2
@@ -40,8 +45,10 @@ We have each branch with different models for each person, and here is detailed 
    - type TL : Mobilenet V3 Small
    - Accuracy : 96%
 3. Sri Rahayu Yusri
-   - model : transfer learning
-   - type TL : -
+   - model : Normal
    - Accuracy : 95%
 
-and the model we chose, with the best accuracy is Afika's with the highest accuracy of 96%
+<h5 align="left">*And the model we chose, with the best accuracy is Nur Afika with the highest accuracy of 96%*</h5>
+	<p align="left">
+
+_Thank you for your dedication in working together to create a model for the final Capstone Project assignment :)_
